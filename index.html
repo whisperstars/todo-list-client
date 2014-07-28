@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TODO-list</title>
+        
+        <link rel="stylesheet" href="lib/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="lib/bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">
+        
+        <link rel="stylesheet" href="styles/css/main.css">
+        
+        <script src="lib/jquery.min.js"></script>
+        <script src="lib/underscore.js"></script>
+        <script src="lib/backbone.js"></script>
+        <script src="lib/backbone-mediator.js"></script>
+        <script src="lib/backbone.ModelBinder.js"></script>
+        
+        <script src="lib/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+        
+        <script src="scripts/main.js"></script>
+        
+        <script src="scripts/TodoItem/TodoItemModel.js"></script>
+		<script src="scripts/TodoItem/TodoItemCollection.js"></script>
+	
+		<script src="scripts/TodoItemEditor/TodoItemEditorModel.js"></script>
+		<script src="scripts/TodoItemEditor/TodoItemEditorModelView.js"></script>
+
+        <script src="scripts/Projects/ProjectsModel.js"></script>
+		<script src="scripts/Projects/ProjectsCollection.js"></script>
+		<script src="scripts/Projects/ProjectsModelView.js"></script>
+		<script src="scripts/Projects/ProjectsCollectionView.js"></script>
+        
+</head>
+<body>
+    <div class="wrapper">
+    	<div class="app center-block">
+	        <div class="title center-block text-center">
+	            <h1><strong>Simple TODO list</strong></h1>
+	        </div>
+
+	        <div class="main">
+	        
+	        </div>
+
+	        <div class="modal fade todo-item-editor" role="dialog" aria-hidden="true">
+	        	<div class="modal-dialog">
+		        	<div class="modal-content">
+		        		<div class="modal-body"></div>
+		        		<div class="modal-footer">
+			        		<div class="btn btn-primary save">Save</div>
+			        		<div class="btn btn-default cancel">Cancel</div>
+			        	</div>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+    </div>
+
+    <div class="templates hidden">
+    </div>
+</body>
+</html>
