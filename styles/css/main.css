@@ -1,10 +1,19 @@
+body {
+  background: transparent url(../../images/reWalls.com-30464.jpg) no-repeat fixed;
+  background-size: 100% 100%; }
+
+.title {
+  color: white; }
+
 .app {
-  width: 840px; }
-  .app .project .project-title {
-    font-size: 24px;
-    font-weight: bold; }
-  .app .project .panel-body {
-    background-color: #e1e1e8; }
+  width: 960px; }
+  .app .project {
+    border-radius: 5px 5px 13px 13px; }
+    .app .project .project-title {
+      font-size: 24px;
+      font-weight: bold; }
+    .app .project .panel-body {
+      background-color: #e1e1e8; }
   .app .add-project-btn {
     font-weight: bold; }
 

@@ -1,7 +1,17 @@
+body {
+    background: transparent url(../../images/reWalls.com-30464.jpg) no-repeat fixed;
+    background-size: 100% 100%;
+}
+
+.title {
+    color: white;
+}
+
 .app {
-    width: 840px;
+    width: 960px;
     
     .project {
+        border-radius: 5px 5px 13px 13px;
         .project-title {
             font-size: 24px;
             font-weight: bold;
