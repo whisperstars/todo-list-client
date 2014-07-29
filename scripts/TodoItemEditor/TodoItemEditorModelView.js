@@ -4,16 +4,20 @@
 
         template: {
             'Project': '<div class="project-fields">' +
-                'Project Title: <input type="text" name="title" value="<%= title%>">' +
+                'Project Title: <input type="text" name="title" value="<%= title %>">' +
                 '</div>',
-            'Task': ''
+            'Task': '<div class="task-fields">' +
+                'Task Title: <input type="text" name="title" value="<%= title %>">' +
+                'Task Deadline: <input type="text" name="deadline" value="<%= deadline %>">' +
+                '</div>'
         },
 
         is_new_model: true,
 
         subscriptions: {
             'Projects:CreateNewItem': 'initItem',
-            'Projects:EditItem': 'editItem'
+            'Projects:EditItem': 'editItem',
+            'Tasks:EditItem': 'editItem'
         },
 
         events: {
@@ -45,6 +49,10 @@
 
         saveItem: function() {
             this.model.set('title', this.$('input[name="title"]').val());
+
+            if(this.model.get('item_type') === 'Task') {
+                this.model.set('deadline', this.$('input[name="deadline"]').val());
+            }
 
             if(this.is_new_model) {
                 mediator.pub('TodoItemEditor:' + this.model.get('item_type') + 'Saved', this.model);
