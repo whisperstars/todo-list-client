@@ -25,17 +25,18 @@
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
 
+            if(this.model.get('is_done')) {
+                this.$el.addClass('success');
+                this.$('.is-done').attr('checked', "true");
+            } else {
+                this.$el.removeClass('success');
+            }
+
             return this;
         },
 
         changeTaskStatus: function() {
             this.model.set('is_done', !this.model.get('is_done'));
-
-            if(this.model.get('is_done')) {
-                this.$el.addClass('success');
-            } else {
-                this.$el.removeClass('success');
-            }
         },
 
         editTask: function() {
