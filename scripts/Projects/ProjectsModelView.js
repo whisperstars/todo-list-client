@@ -8,8 +8,8 @@
         
         template: _.template('<div class="panel-heading clearfix">' +
                         '<div class="project-title pull-left">' +
-                            '<span class="glyphicon glyphicon-list-alt"></span>' +
-                            '<span class="title">  <%= title %></span>' +
+                            '<span class="glyphicon glyphicon-list-alt"></span> ' +
+                            '<span class="title"><%= title %></span>' +
                         '</div>' +
                         '<div class="project-controlls pull-right btn-group">' +
                             '<div class="btn btn-primary edit"><span class="glyphicon glyphicon-pencil"></span></div> ' +
@@ -39,17 +39,23 @@
             'click .add-task': 'addTask'
         },
 
+        bindings: {title: 'span.title'},
+
         initialize: function() {
-            this.model.on('change', this.render, this);
+            this._modelBinder = new Backbone.ModelBinder();
         },
 
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
+
+            this._modelBinder.bind(this.model, this.el, this.bindings, {initialCopyDirection: Backbone.ModelBinder.Constants.ModelToView});
             
-            this.tasks_collection_view = new tasks.CollectionView({
-                el: this.$('.tasks-list-container'),
-                project_id: this.model.cid /*@TODO change to cid to id*/
-            });
+            if(!this.tasks_collection_view) {
+                this.tasks_collection_view = new tasks.CollectionView({
+                    el: this.$('.tasks-list-container'),
+                    project_id: this.model.cid /*@TODO change to cid to id*/
+                });
+            }
 
             return this;
         },
@@ -67,16 +73,21 @@
             var task_title = this.$('input[name="title"]').val(),
                 attributes;
 
-            this.$('input[name="title"]').val('');
+            if(task_title !== '') {
+                this.$('input[name="title"]').val('');
+                this.$('.input-group').removeClass('form-group has-error');
 
-            attributes = {
-                title: task_title,
-                item_type: 'Task',
-                is_done: false,
-                project_id: this.model.cid /*@TODO change to cid to id*/
-            };
+                attributes = {
+                    title: task_title,
+                    item_type: 'Task',
+                    is_done: false,
+                    project_id: this.model.cid /*@TODO change to cid to id*/
+                };
 
-            mediator.pub('Projects:TaskAdded', attributes);
+                mediator.pub('Projects:TaskAdded', attributes);
+            } else {
+                this.$('.input-group').addClass('form-group has-error');
+            }
         }
 
     });

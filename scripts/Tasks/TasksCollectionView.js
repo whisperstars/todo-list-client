@@ -21,6 +21,7 @@
 
             this.collection.on('add', this.render, this);
             this.collection.on('change', this.render, this);
+            this.collection.on('remove', this.calculatePosition, this);
 
             if(options.project_id == 'c3') {
                 this.collection.add({
@@ -62,11 +63,20 @@
         },
 
         addTask: function(attributes) {
+            //var model = new module.Model(attributes);
+
             if(attributes.project_id === this.project_id) {
                 attributes.position = this.collection.length;
-            
                 this.collection.add(attributes);
             }
+        },
+
+        calculatePosition: function(task_model) {
+            this.collection.each(function(iterate_task_model) {
+                if(iterate_task_model.get('position') > task_model.get('position')) {
+                    iterate_task_model.set('position', iterate_task_model.get('position') -1);
+                }
+            }, this);
         }
 
     });

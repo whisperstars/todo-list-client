@@ -9,7 +9,8 @@ var todo = {},
 
 $(function() {
     "use strict";
-
+    Backbone.ModelBinder.SetOptions({modelSetOptions: {validate: true}});
+    
     todo.todo_item_editor = new app.TodoItemEditor.ModelView({
         el: $('.todo-item-editor')
     });

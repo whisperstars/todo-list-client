@@ -4,7 +4,7 @@
 
         template: {
             'Project': '<div class="project-fields">' +
-                'Project Title: <input type="text" name="title" value="">' +
+                'Project Title: <input type="text" class="form-control" name="title" value="">' +
                 '</div>',
             'Task': '<div class="task-fields">' +
                 'Task Title: <input type="text" name="title" value="">' +
@@ -42,11 +42,19 @@
             this.is_new_model = true;
             this.model.set(attributes);
 
+            if(this.model.isValid()) {
+                console.log('true');
+            } else {
+                console.log('false');
+            }
+
             this.render();
         },
 
         editItem: function(model) {
             this.model = model;
+
+            this.model.previous_attributes = this.model.toJSON();
             this._modelBinder = new Backbone.ModelBinder();
 
             this.is_new_model = false;
@@ -64,22 +72,20 @@
         },
 
         saveItem: function() {
-            //this.model.set('title', this.$('input[name="title"]').val());
+            if(this.model.isValid()) {
+                if(this.is_new_model) {
+                    mediator.pub('TodoItemEditor:' + this.model.get('item_type') + 'Saved', this.model);
+                }
 
-            if(this.model.get('item_type') === 'Task') {
-                //this.model.set('deadline', this.$('input[name="deadline"]').val());
+                this.$el.modal('hide');
+            } else {
+                this.$('.project-fields').addClass('form-group has-error');
             }
-
-            if(this.is_new_model) {
-                mediator.pub('TodoItemEditor:' + this.model.get('item_type') + 'Saved', this.model);
-            }
-
-            this._modelBinder.unbind();
-            this.$el.modal('hide');
         },
 
         cancelItem: function() {
-            this._modelBinder.unbind();
+            this.model.set(this.model.previous_attributes);
+            
             this.$el.modal('hide');
         }
 
